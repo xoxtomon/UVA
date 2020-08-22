@@ -1,0 +1,17 @@
+def contar[T](lst:List[T],elem:T,acum:Int): Int={
+  lst match{
+    case Nil => acum
+    case a :: b => if(a == elem) contar(b,elem,acum+1)
+                    else contar(b,elem,acum)
+  }
+}
+
+def maximaOcurrencia[T](lst:List[T]): T ={
+  lst match{
+    case a :: Nil => a
+    case a :: b => {
+                  if(contar(lst,a,0) > contar(lst,maximaOcurrencia(b),0)) a
+                  else maximaOcurrencia(b)
+    }
+  }
+}

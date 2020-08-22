@@ -1,0 +1,11 @@
+def ultimaOcurrencia[T](lst:List[T], elem:T) : Int ={
+  def aux(lst:List[T], elem:T, ult:Int, posAct:Int) : Int ={
+    //require(ult == -1 && posAct == 0)
+    lst match{
+      case Nil => ult
+      case a :: b => if(a == elem) aux(b,elem,posAct,posAct+1)
+                      else aux(b,elem,ult,posAct+1) 
+    }
+  }
+  aux(lst, elem,-1,0)
+}

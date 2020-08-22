@@ -1,0 +1,17 @@
+def diferentes(l1:List[Int], l2:List[Int]) : Int = {
+  //1 si son iguales, -1 si son diferentes
+  if(l1.length != l2.length){
+    -1
+  }
+  else{
+    l1 match{
+      case Nil => 1
+      case a :: b => if(a == l2.head){
+                        1 * (diferentes(b, l2.tail))
+                      }
+                      else{
+                        -1
+                      }
+    }
+  }
+}

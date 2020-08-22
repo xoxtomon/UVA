@@ -1,0 +1,4 @@
+def pr1[T,Y](tpl:List[(T,Y)]): T ={
+  tpl.head._1
+}
+

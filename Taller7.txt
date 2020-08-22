@@ -1,0 +1,188 @@
+//INTEGRANTES
+Paul Martínez
+Simón Zuluaga
+
+
+// Definicions del dato abstracto inductivo arbol vistas en clase
+abstract class Arbol{}
+case class Vacio() extends Arbol
+case class Hoja(valor : Int) extends Arbol
+case class Rama(valor : Int, izq : Arbol, der : Arbol) extends Arbol
+
+abstract class ArbolN{}
+case class VacioN() extends ArbolN
+case class HojaN(valor : Int) extends ArbolN
+case class RamaN(valor : Int, hijos : List[ArbolN]) extends ArbolN
+
+1.
+
+def obtenerValoresHojas(a:Arbol): List[Int]={
+  def aux(a:Arbol, acum:List[Int]): List[Int]={
+    a match{
+      case Vacio() => acum
+      case Hoja(v) => v::acum
+      case Rama(v,izq,der) => aux(izq,aux(der,acum))
+    }
+  }
+  aux(a,Nil)
+}
+
+2.
+
+def obtenerValoresHijos(lst:List[ArbolN]):List[Int]={
+  lst match{
+    case Nil => Nil
+    case a::b => obtenerValoresHojasN(a):::obtenerValoresHijos(b)
+  }
+}
+
+def obtenerValoresHojasN(a:ArbolN): List[Int]={
+  a match{
+    case VacioN()=> Nil
+    case HojaN(v)=> List(v)
+    case RamaN(v,hijos) => obtenerValoresHijos(hijos)
+  }
+}
+
+3.
+
+def ObtenerValoresRama(a:Arbol): List[Int]={
+  def aux(a:Arbol, vr:Int , acum:List[Int]): List[Int]={
+    a match{
+      case Vacio() => acum
+      case Hoja(v) => v + vr ::  acum
+      case Rama(v,izq,der) => aux(izq, v + vr, aux(der, v + vr, acum))
+    }
+  }
+  aux(a,0,Nil)
+}
+
+4.
+
+def obtenerValoresRamasN(t : ArbolN) : List[Int] = {
+    def obtN(tL : List[ArbolN], acum : List[Int], count : Int) : List[Int] = {
+        tL match {
+                case Nil    =>  acum
+                case a::b   =>  a match {
+                                    case VacioN()       => obtN(b, acum, count)
+                                    case HojaN(v)       => v + count::obtN(b, acum, count)
+                                    case RamaN(v, l)    => obtN(l, obtN(b, acum, count), v + count)
+                                }
+        }
+    }
+    obtN(t::Nil, Nil, 0)
+}
+
+5.
+
+def path(a:Arbol, num:Int):List[String]={
+  def aux(a:Arbol, num:Int, acum:List[String]):List[String]={
+    a match{
+      case Vacio() => acum
+      case Hoja(v) => if(num > v){
+                        val c = "der"::acum
+                        c.reverse
+                      }
+                      else {
+                        val c = "izq"::acum
+                        c.reverse
+                      }
+      case Rama(v,i,d) => if(num == v) acum.reverse
+                          else{
+                            if(num > v){
+                              aux(d, num, "der"::acum)
+                            }
+                            else aux(i, num, "izq"::acum)
+                          }
+    }  
+  }
+  aux(a,num,Nil)
+}
+
+6.
+
+def eliminarRaizMonticulo(t : Arbol) : Arbol = {
+    t match {
+        case Rama(v, i , d) =>  i match {
+                                    case Rama(v1, i1, d1)   => Rama(v1, eliminarRaizMonticulo(i), d)
+                                    case Hoja(v1)           => Rama(v1, Vacio(), d)
+                                    case Vacio()            => Vacio()
+                                }
+        case _ => Vacio()
+    }
+}
+
+//DEFINICIÓN
+
+abstract class Operacion { }
+case class Numero(valor: Double) extends Operacion
+case class Variable(v: Char) extends Operacion
+case class Suma(ope1: Operacion, ope2: Operacion) extends Operacion
+case class Resta(ope1: Operacion, ope2: Operacion) extends Operacion
+case class Mult(ope1: Operacion, ope2: Operacion) extends Operacion
+case class Div(ope1: Operacion, ope2: Operacion) extends Operacion
+
+7.
+
+case class Ln(ope : Operacion) extends Operacion
+case class Exp(base : Operacion, exponente : Operacion) extends Operacion
+
+def limpiar(ope : Operacion) : Operacion = {
+    ope match{
+        case Numero(v) => Numero(v)
+        case Variable(v) => Variable(v)
+        case Suma(ope1, ope2) => (ope1, ope2) match {
+                    case (Numero(a), Numero(b)) => Numero(a + b)
+                    case (Numero(0), _) => limpiar(ope2)
+                    case (_, Numero(0)) => limpiar(ope1)
+                    case _ => Suma(limpiar(ope1), limpiar(ope2))
+                }
+        case Resta(ope1, ope2) => (ope1, ope2) match {
+                    case (Numero(a), Numero(b)) => Numero(a - b)
+                    case (Numero(0), _) => limpiar(ope2)
+                    case (_, Numero(0)) => limpiar(ope1)
+                    case _ => Resta(limpiar(ope1), limpiar(ope2))
+                }
+        case Mult(ope1, ope2) => (ope1, ope2) match {
+                    case (Numero(a), Numero(b)) => Numero(a * b)
+                    case (Numero(0), _) => Numero(0)
+                    case (_, Numero(0)) => Numero(0)
+                    case _ => Mult(limpiar(ope1), limpiar(ope2))
+                }
+        case Div(ope1, ope2) => (ope1, ope2) match {
+                    case (Numero(0), _) => Numero(0)
+                    case (Numero(a), Numero(b)) => Numero(a / b)
+                    // case (_, Numero(0)) => Numero(0) Error supuesto x/0
+                    case _ => Div(limpiar(ope1), limpiar(ope2))
+                }
+        case Ln(ope1) => ope match {
+                    case Numero(1) => Numero(0)
+                    case Numero(_) =>  ope
+                    case Variable(_) =>  ope
+                    case _ => Ln(limpiar(ope1))
+                }
+        case Exp(ope1, ope2) => (ope1, ope2) match {
+                    case (Numero(a), Numero(b)) => Numero(math.pow(a, b))
+                    case (Numero(0), _) => Numero(0)
+                    case (_, Numero(0)) => Numero(1)
+                    case _ => Exp(limpiar(ope1), limpiar(ope2))
+                }
+    }
+}
+
+def derivar(ope : Operacion, x : Char) : Operacion = {
+    def in(ope : Operacion, x : Char) : Operacion = {
+        ope match {
+            case Numero(_) => Numero(0)
+            case Variable(v) => if (v == x) Numero(1) else limpiar(ope)
+            case Suma(ope1, ope2) => limpiar(Suma(derivar(ope1, x), derivar(ope2, x)))
+            case Resta(ope1, ope2) => limpiar(Resta(derivar(ope1, x), derivar(ope2, x)))
+            case Mult(ope1, ope2) => limpiar(Suma(Mult(derivar(ope1, x), ope2), Mult(ope1, derivar(ope2, x))))
+            case Div(ope1, ope2) => limpiar(Div(Resta(Mult(derivar(ope1, x), ope2), Mult(ope1, derivar(ope2, x))), Exp(ope2, Numero(2))))
+            case Ln(ope1) => limpiar(Div(derivar(ope1, x), ope1))
+            case Exp(base, exponente) => limpiar(Mult(ope, Suma(Div(Mult(derivar(base, x), exponente), base),Mult(derivar(exponente, x), Ln(base)))))
+        }
+    }
+    limpiar(in(ope, x))
+}
+

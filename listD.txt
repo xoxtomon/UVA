@@ -1,0 +1,15 @@
+def random[T](s: Set[T]): T = {
+  val n = util.Random.nextInt(s.size)
+  s.iterator.drop(n).next
+}
+
+def listD[T](s:Set[T], n:Int): List[T] ={
+  def aux[T](n:Int, elem:T, acum:List[T]): List[T] ={
+    n match{
+      case 0 => acum
+      case _=> aux(n-1,elem, elem::acum)
+    }
+  }
+  val rdm = random(s)
+  aux(n,rdm,Nil)
+}

@@ -1,0 +1,19 @@
+def contar(lst:List[Int], n:Int) : Int = {
+  lst match{
+    case Nil => 0
+    case a :: b => if(a == n) 1 + contar(b,n)
+                  else contar(b,n)
+  }
+}
+
+def maximaOcurrencia(lst:List[Int]) : Int = {
+  lst match{
+    case a :: Nil => a
+    case a :: b => if(contar(lst,a) > maximaOcurrencia(b)) a
+                    else maximaOcurrencia(b)
+  }
+}
+
+val lst = 2 :: 3 :: 4 :: 5 :: 6 :: 6 :: Nil
+
+println(maximaOcurrencia(lst))

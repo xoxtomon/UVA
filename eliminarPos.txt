@@ -1,0 +1,6 @@
+def eliminarPos(l:List[Int], n:Int) : List[Int] = {
+  n match{
+    case 0 => l.tail
+    case _ => l.head :: eliminarPos(l.tail, n-1)
+  }
+}

@@ -1,0 +1,3 @@
+def pr2[T,Y](tpl:List[(T,Y)]): Y ={
+  tpl.head._2
+}

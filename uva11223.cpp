@@ -1,0 +1,254 @@
+#include<cstdio>
+#include<iostream>
+#include<string>
+#include<map>
+
+using namespace std;
+
+//La complejidad de este algoritmo es O(n^2)
+
+int main(){	
+	int i,casos, cont=1;
+	string aux;
+	scanf("%d",&casos);
+	string tmp;
+	getline(cin,tmp); //para que elimine el '\n' del buffer. si no
+	for(i=0;i<casos;i++){
+		int j;
+		cout << "Message #" << cont++ <<endl;
+		
+		string temp;
+		string palabra="";
+		getline(cin,temp);
+		for(j=0;j<temp.size();j++){
+			if(temp[j]==' '){
+				if(palabra==".-"){
+				cout<<'A';
+				}if(palabra=="-..."){
+					cout<<'B';
+				}if(palabra=="-.-."){
+					cout<<'C';
+				}if(palabra=="-.."){
+					cout<<'D';
+				}if(palabra=="."){
+					cout<<'E';
+				}if(palabra=="..-."){
+					cout<<'F';
+				}if(palabra=="--."){
+					cout<<'G';
+				}if(palabra=="...."){
+					cout<<'H';
+				}if(palabra==".."){
+					cout<<'I';
+				}if(palabra==".---"){
+					cout<<'J';
+				}if(palabra=="-.-"){
+					cout<<'K';
+				}if(palabra==".-.."){
+					cout<<'L';
+				}if(palabra=="--"){
+					cout<<'M';
+				}if(palabra=="-."){
+					cout<<'N';
+				}if(palabra=="---"){
+					cout<<'O';
+				}if(palabra==".--."){
+					cout<<'P';
+				}if(palabra=="--.-"){
+					cout<<'Q';
+				}if(palabra==".-."){
+					cout<<'R';
+				}if(palabra=="..."){
+					cout<<'S';
+				}if(palabra=="-"){
+					cout<<'T';
+				}if(palabra=="..-"){
+					cout<<'U';
+				}if(palabra=="...-"){
+					cout<<'V';
+				}if(palabra==".--"){
+					cout<<'W';
+				}if(palabra=="-..-"){
+					cout<<'X';
+				}if(palabra=="-.--"){
+					cout<<'Y';
+				}if(palabra=="--.."){
+					cout<<'Z';
+				}if(palabra=="-----"){
+					cout<<'0';
+				}if(palabra==".----"){
+					cout<<'1';
+				}if(palabra=="..---"){
+					cout<<'2';
+				}if(palabra=="...--"){
+					cout<<'3';
+				}if(palabra=="....-"){
+					cout<<'4';
+				}if(palabra=="....."){
+					cout<<'5';
+				}if(palabra=="-...."){
+					cout<<'6';
+				}if(palabra=="--..."){
+					cout<<'7';
+				}if(palabra=="---.."){
+					cout<<'8';
+				}if(palabra=="----."){
+					cout<<'9';
+				}if(palabra==".-.-.-"){
+					cout<<'.';
+				}if(palabra=="--..--"){
+					cout<<',';
+				}if(palabra=="..--.."){
+					cout<<'?';
+				}if(palabra==".----."){
+					cout<<'’';
+				}if(palabra=="-.-.--"){
+					cout<<'!';
+				}if(palabra=="-..-."){
+					cout<<'/';
+				}if(palabra=="-.–."){
+					cout<<'(';
+				}if(palabra=="-.--.-"){
+					cout<<')';
+				}if(palabra==".-..."){
+					cout<<'&';
+				}if(palabra=="---..."){
+					cout<<':';
+				}if(palabra=="-.-.-."){
+					cout<<';';
+				}if(palabra=="-...-"){
+					cout<<'=';
+				}if(palabra==".-.-."){
+				cout<<'+';
+				}if(palabra=="-....-"){
+					cout<<'-';
+				}if(palabra=="..--.-"){
+					cout<<'_';
+				}if(palabra==".-..-."){
+					cout<<'"';
+				}if(palabra==".--.-."){
+					cout<<'@';
+				}
+				palabra = "";
+				if(j+1<temp.size()){
+					if(temp[j+1]==' '){
+						cout << " ";
+					}
+				}
+			}
+			else{
+				if(temp[j]!=' '){
+					palabra += temp[j]; 
+				}
+			}
+		}
+			if(palabra==".-"){
+				cout<<"A\n"<<endl;
+			}if(palabra=="-..."){
+				cout<<"B\n"<<endl;
+			}if(palabra=="-.-."){
+				cout<<"C\n"<<endl;
+			}if(palabra=="-.."){
+				cout<<"D\n"<<endl;
+			}if(palabra=="."){
+				cout<<"E\n"<<endl;
+			}if(palabra=="..-."){
+				cout<<"F\n"<<endl;
+			}if(palabra=="--."){
+				cout<<"G\n"<<endl;
+			}if(palabra=="...."){
+				cout<<"H\n"<<endl;
+			}if(palabra==".."){
+				cout<<"I\n"<<endl;
+			}if(palabra==".---"){
+				cout<<"J\n"<<endl;
+			}if(palabra=="-.-"){
+				cout<<"K\n"<<endl;
+			}if(palabra==".-.."){
+				cout<<"L\n"<<endl;
+			}if(palabra=="--"){
+				cout<<"M\n"<<endl;
+			}if(palabra=="-."){
+				cout<<"N\n"<<endl;
+			}if(palabra=="---"){
+				cout<<"O\n"<<endl;
+			}if(palabra==".--."){
+				cout<<"P\n"<<endl;
+			}if(palabra=="--.-"){
+				cout<<"Q\n"<<endl;
+			}if(palabra==".-."){
+				cout<<"R\n"<<endl;
+			}if(palabra=="..."){
+				cout<<"S\n"<<endl;
+			}if(palabra=="-"){
+				cout<<"T\n"<<endl;
+			}if(palabra=="..-"){
+				cout<<"U\n"<<endl;
+			}if(palabra=="...-"){
+				cout<<"V\n"<<endl;
+			}if(palabra==".--"){
+				cout<<"W\n"<<endl;
+			}if(palabra=="-..-"){
+				cout<<"X\n"<<endl;
+			}if(palabra=="-.--"){
+				cout<<"Y\n"<<endl;
+			}if(palabra=="--.."){
+				cout<<"Z\n"<<endl;
+			}if(palabra=="-----"){
+				cout<<"0\n"<<endl;
+			}if(palabra==".----"){
+				cout<<"1\n"<<endl;
+			}if(palabra=="..---"){
+				cout<<"2\n"<<endl;
+			}if(palabra=="...--"){
+				cout<<"3\n"<<endl;
+			}if(palabra=="....-"){
+				cout<<"4\n"<<endl;
+			}if(palabra=="....."){
+				cout<<"5\n"<<endl;
+			}if(palabra=="-...."){
+				cout<<"6\n"<<endl;
+			}if(palabra=="--..."){
+				cout<<"7\n"<<endl;
+			}if(palabra=="---.."){
+				cout<<"8\n"<<endl;
+			}if(palabra=="----."){
+				cout<<"9\n"<<endl;
+			}if(palabra==".-.-.-"){
+				cout<<".\n"<<endl;
+			}if(palabra=="--..--"){
+				cout<<",\n"<<endl;
+			}if(palabra=="..--.."){
+				cout<<"?\n"<<endl;
+			}if(palabra==".----."){
+				cout<<"’\n"<<endl;
+			}if(palabra=="-.-.--"){
+				cout<<"!\n"<<endl;
+			}if(palabra=="-..-."){
+				cout<<"/\n"<<endl;
+			}if(palabra=="-.–."){
+				cout<<"(\n"<<endl;
+			}if(palabra=="-.--.-"){
+				cout<<")\n"<<endl;
+			}if(palabra==".-..."){
+				cout<<"&\n"<<endl;
+			}if(palabra=="---..."){
+				cout<<":\n"<<endl;
+			}if(palabra=="-.-.-."){
+				cout<<";\n"<<endl;
+			}if(palabra=="-...-"){
+				cout<<"=\n"<<endl;
+			}if(palabra==".-.-."){
+				cout<<"+\n"<<endl;
+			}if(palabra=="-....-"){
+				cout<<"-\n"<<endl;
+			}if(palabra=="..--.-"){
+				cout<<"_\n"<<endl;
+			}if(palabra==".-..-."){
+				cout<<'"'<<"\n"<<endl;
+			}if(palabra==".--.-."){
+				cout<<"@\n"<<endl;
+			}
+	}
+}
+

@@ -1,0 +1,11 @@
+def eliminarOcurrencias(l:List[Int], n:Int) : List[Int] = {
+  l match{
+    case Nil => Nil
+    case a :: b => if(a == n){
+                      eliminarOcurrencias(b,n)
+                    }
+                    else{
+                      a :: eliminarOcurrencias(b,n)
+                    }
+  }
+}

@@ -1,0 +1,12 @@
+def tieneRepetidos(l:List[Int]) : Int = { 
+  // 1 si hay repetidos, 0 si no
+  l match{
+    case Nil => 0
+    case a :: b => if(b.contains(a)){
+                      1
+                    }
+                    else{
+                      tieneRepetidos(b)
+                    }
+  }
+}
