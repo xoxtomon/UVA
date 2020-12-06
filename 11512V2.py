@@ -1,5 +1,5 @@
 from sys import stdin
-from collections import deque
+from collections import deque, OrderedDict
 from itertools import chain, islice, groupby
 
 def suffix_array(A):
@@ -56,8 +56,9 @@ def lcs(cadena,sa,lcp):
             if sbstr not in ans:
                 ans[sbstr] = [x1]
             ans[sbstr].append(x2)
-            
-    return dict((k, sorted(v)) for k, v in ans.items())
+    
+    lst = [(k,len(v)) for k,v in ans.items()]
+    return sorted(lst, key=lambda v: v[0])
 
 def main():
     myRawInput = stdin.readlines()
@@ -67,14 +68,12 @@ def main():
         suffixArray = suffix_array(case)
         inverseSuffixArray = inverse_suffix_array(suffixArray)
         lcp = lcp_array(case, suffixArray,inverseSuffixArray)
-
-        #print(longest_common_substring(case,suffixArray,inverseSuffixArray,lcp))
         
         sol = lcs(case,suffixArray,lcp)
-        fst = list(sol.items())[0]
-        if fst[0]!='':
-            #print(f'{fst[0]} {len(fst[1])}')
-            print("%s %s" % (fst[0], len(fst[1])))
+        if(sol[0][0]!=''):
+            print("%s %s" % (sol[0][0], sol[0][1]))
+        elif (sol[0][0]=='' and len(sol)>1):
+            print("%s %s" % (sol[1][0], sol[1][1]))
         else:
             print("No repetitions found!")
 
