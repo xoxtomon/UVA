@@ -2,6 +2,7 @@
 #include <string>
 #include <stack>
 #include <queue>
+#include <cstdio>
 #include <iostream>
 #include <sstream>
 #include <set>
@@ -66,7 +67,7 @@ int radio(){
 }
 
 void centro(){
-  int i, v, nivelMax = 0, radio, nivelMin=INT_MAX;
+  int i, v, nivelMax = 0, radio, nivelMin=999999999;
   queue<int> cola;
 
   for(i = 1; i <= n; ++i){

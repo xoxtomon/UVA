@@ -1,6 +1,6 @@
 from sys import stdin
 from collections import deque
-from itertools import chain, islice
+from itertools import chain, islice, groupby
 
 def suffix_array(A):
     #algoritmo de Vladu and Negruşeri
@@ -43,7 +43,7 @@ def lcp_array(cadena, sa, inverse_sa):
         if k > 0:
             k-=1
     lcp.pop()
-    lcp.insert(0,-1)
+    lcp.insert(0,0)
     return lcp
 
 def lcs(cadena,sa,lcp):
@@ -59,24 +59,24 @@ def lcs(cadena,sa,lcp):
             ans[sbstr].append(x2)
     return dict((k, sorted(v)) for k, v in ans.items())
 
-
-
 def main():
     myRawInput = stdin.readlines()
 
     for i in range(1, len(myRawInput)):
         case = myRawInput[i].strip('\n')
-
         suffixArray = suffix_array(case)
         inverseSuffixArray = inverse_suffix_array(suffixArray)
         lcp = lcp_array(case, suffixArray,inverseSuffixArray)
 
+        #print(longest_common_substring(case,suffixArray,inverseSuffixArray,lcp))
+        
         sol = lcs(case,suffixArray,lcp)
+        #sol = longest_common_substring(case,suffixArray,inverseSuffixArray,lcp)
         fst = list(sol.items())[0]
         if(fst[0]):
-            print(f'{fst[0]} {len(fst[1])}')
+            #print(f'{fst[0]} {len(fst[1])}')
+            print("%s %s" % (fst[0], len(fst[1])))
         else:
             print("No repetitions found!")
-
 
 main()
